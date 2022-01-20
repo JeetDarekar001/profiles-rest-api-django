@@ -5,6 +5,7 @@ from multiprocessing import AuthenticationError
 from operator import imod
 from os import stat
 from urllib import response
+from rest_framework import filters
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -120,4 +121,6 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     queryset = models.UserProfile.objects.all()
     authentication_classes = (TokenAuthentication,)
     permission_classes = (permissions.UpdateOwnProfile,)
-
+    filter_backends=(filters.SearchFilter,)
+    search_fields=('name','email')
+    

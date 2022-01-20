@@ -2,9 +2,8 @@
 from email import message
 import imp
 from multiprocessing import AuthenticationError
-from operator import imod
-from os import stat
-from urllib import response
+from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.settings import api_settings
 from rest_framework import filters
 from django.shortcuts import render
 from rest_framework.views import APIView
@@ -123,4 +122,9 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.UpdateOwnProfile,)
     filter_backends=(filters.SearchFilter,)
     search_fields=('name','email')
+
+
+class UserLoginApiView(ObtainAuthToken):
+    """Handle creating user authenication tokens"""
+    renderer_classes=api_settings.DEFAULT_RENDERER_CLASSES
     
